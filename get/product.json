@@ -1,0 +1,160 @@
+{
+    _id: "57ee7d7253411848528b4567",
+    id: 2,
+    goods_name: "爱奇果 陕西眉县 徐香猕猴桃 12粒装 单果100-120g",
+    shop_id: 1,
+    first_cate_id: 1,
+    second_cate_id: 0,
+    is_real: 1,
+    is_advance: 0,
+    advance_send_begintime: "0000-00-00 00:00:00",
+    advance_send_endtime: "0000-00-00 00:00:00",
+    advance_endtime: "0000-00-00 00:00:00",
+    is_privilege: 0,
+    is_member_discount: false,
+    purchase_limit: 0,
+    picture: [
+        "http://img13.360buyimg.com/n1/jfs/t3655/151/1971152678/274261/fb508f8c/5840d683Na2190edd.jpg",
+        "http://img13.360buyimg.com/n1/jfs/t3619/270/2066693637/130324/872511e6/583b993cNf8b30bcd.jpg",
+        "http://img13.360buyimg.com/n1/jfs/t3988/154/78996704/392074/4a9edd9f/583b993cN1f0f62d1.jpg",
+        "http://img13.360buyimg.com/n1/jfs/t3370/315/1984719501/142392/2f47d380/583b993cN67ee086a.jpg",
+    ],
+    goods_price: 0.01,
+    cost_price: 12,
+    market_price: 34,
+    delivery: 0,
+    delivery_id: 0,
+    supplier_id: 0,
+    related_products: [ ],
+    goods_detail: '<p><img src="http://img13.360buyimg.com/n1/jfs/t3619/270/2066693637/130324/872511e6/583b993cNf8b30bcd.jpg"/><img src="http://img13.360buyimg.com/n1/jfs/t3988/154/78996704/392074/4a9edd9f/583b993cN1f0f62d1.jpg" title="1475890246934902.jpg" alt="2.jpg"/><img src="http://img13.360buyimg.com/n1/jfs/t3370/315/1984719501/142392/2f47d380/583b993cN67ee086a.jpg" title="1475890251162294.jpg" alt="3.jpg"/></p>',
+    spec: [
+    {
+        spec_id: 4,
+        spec_name: "尺寸",
+        value: [
+            {
+                value_id: 4,
+                value_text: "S",
+                imgUrl: ""
+            },
+            {
+                value_id: 3,
+                value_text: "L",
+                imgUrl: ""
+            }
+        ]
+    },
+    {
+        spec_id: 2,
+        spec_name: "口味",
+        value: [
+            {
+                value_id: 2,
+                value_text: "咸",
+                imgUrl: ""
+            },
+            {
+                value_id: 1,
+                value_text: "甜",
+                imgUrl: ""
+            }
+        ]
+    }
+],
+    stock: [
+    {
+        stock_id: 7,
+        stock_price: 0.4,
+        stock_num: 0,
+        stock_spec_str: "4,2",
+        stock_spec: [
+            {
+                spec_id: 4,
+                spec_name: "尺寸",
+                value_id: 4,
+                value_text: "S"
+            },
+            {
+                spec_id: 2,
+                spec_name: "口味",
+                value_id: 2,
+                value_text: "咸"
+            }
+        ],
+        sold_num: 2
+    },
+    {
+        stock_id: 8,
+        stock_price: 0.03,
+        stock_num: 0,
+        stock_spec_str: "4,1",
+        stock_spec: [
+            {
+                spec_id: 4,
+                spec_name: "尺寸",
+                value_id: 4,
+                value_text: "S"
+            },
+            {
+                spec_id: 2,
+                spec_name: "口味",
+                value_id: 1,
+                value_text: "甜"
+            }
+        ],
+        sold_num: 2
+    },
+    {
+        stock_id: 9,
+        stock_price: 0.02,
+        stock_num: 8,
+        stock_spec_str: "3,2",
+        stock_spec: [
+            {
+                spec_id: 4,
+                spec_name: "尺寸",
+                value_id: 3,
+                value_text: "L"
+            },
+            {
+                spec_id: 2,
+                spec_name: "口味",
+                value_id: 2,
+                value_text: "咸"
+            }
+        ],
+        sold_num: 4
+    },
+    {
+        stock_id: 10,
+        stock_price: 0.01,
+        stock_num: 8,
+        stock_spec_str: "3,1",
+        stock_spec: [
+            {
+                spec_id: 4,
+                spec_name: "尺寸",
+                value_id: 3,
+                value_text: "L"
+            },
+            {
+                spec_id: 2,
+                spec_name: "口味",
+                value_id: 1,
+                value_text: "甜"
+            }
+        ],
+        sold_num: 3
+    }
+],
+    stock_show: false,
+    published_time: "2016-11-22 17:49:50",
+    goods_status: 2,
+    related_info: [ ],
+    goods_image: "http://iasimg.cccwei.com/info_manager/2016/09/30/banner1.jpg",
+    total_stock: 16,
+    sold_count: 11,
+    cover: "",
+    goods_code: "",
+    published_time_num: 1479808190
+}
