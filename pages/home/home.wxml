@@ -13,10 +13,14 @@ upper-threshold="10"
       </block>
     </swiper>
   </view>
+    <view class="feature-header">
+      <icon><image  class="header-img" src="./images/feature.png"></image></icon>
+      <text>热门分类</text>
+    </view>
   <view class="section activity-list">
     <view class="activity" wx:for="{{activities}}" wx:for-item="activity"
     data-activity-id="{{activity.link_id}}" data-activity-type="{{activity.type}}"
-    data-activity-url="{{activity.link_url}}"
+    data-activity-title="{{activity.title}}"
     bindtap="navigateToActivity">
       <image mode="aspectFill" src="{{activity.image_src}}"></image>
       <label>{{activity.title}}</label>
@@ -26,7 +30,7 @@ upper-threshold="10"
   <view  class="section feature-list" >
     <view class="feature-header">
       <icon><image  class="header-img" src="./images/feature.png"></image></icon>
-      <text>{{shop_info.index_recommend_title}}</text>
+      <text>热销商品</text>
     </view>
    <block  wx:for="{{features}}" wx:for-item="feature" >
       <view wx:if="{{feature.is_sold_out}}" class="feature clearfix" data-goods-id="{{feature.goods_id}}">

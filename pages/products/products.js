@@ -18,7 +18,6 @@ Page({
     const productId = options.id;
     var product = [];
     var that = this;
-    console.log(app.globalData.userID);
     wx.request({
       url: app.serverURL + '/get/product.php', //仅为示例，并非真实的接口地址
       header: {

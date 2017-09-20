@@ -15,12 +15,15 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var categoryId = options.id;
+    var categoryType = options.id;
     var pageData = new Object();
     pageData.page = this.data.currentPage;    //下拉显示产品
     pageData.per_page = this.data.perPage;    //下拉显示产品
     wx.request({
-      url: app.serverURL + '/get/products.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/products.php', //仅为示例，并非真实的接口地址
+      data: {
+        id: categoryType
+      },
       header: {
         'content-type': 'application/json'
       },
@@ -29,7 +32,10 @@ Page({
           products: res.data
         })
       },
-    })
+    });
+    wx.setNavigationBarTitle({
+      title: options.title,
+    });
   },
   navigateToProduct(event) {
     var productId = event.currentTarget.dataset.goodsId;

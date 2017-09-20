@@ -4,7 +4,7 @@ upper-threshold="10">
     <view class="product" wx:for="{{products}}" wx:for-item="product" data-goods-id="{{product.id}}" bindtap="navigateToProduct">  
       <view><image mode="scaleToFill" src="{{product.covers_image}}"></image></view>
       <view class="product-content product-name"><text>{{product.goods_name}}</text></view>
-      <view class="product-content product-price"><text>¥ {{product.goods_price}}</text>
+      <view class="product-content product-price"><text> {{product.goods_price}} 积分</text>
       <text class="product-market">¥ {{product.market_price}}</text>
       </view>
     </view>

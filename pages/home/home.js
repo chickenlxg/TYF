@@ -18,18 +18,19 @@ Page({
   onLoad: function (options) {
     var that = this;    
     wx.request({
-      url: app.serverURL + '/get/swiper.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/swiper.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
       success: function (res) {
+        console.log(res);
         that.setData({
           banners: res.data
         })
       },
     })
     wx.request({
-      url: app.serverURL + '/get/activity.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/activity.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
