@@ -19,11 +19,15 @@ Page({
     var product = [];
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/product.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/product.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
+      data: {
+        id: productId
+      },
       success: function (res) {
+        console.log(res);
         product = res.data;
         that.setData({
           product: res.data,

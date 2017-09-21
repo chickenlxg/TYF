@@ -9,11 +9,11 @@
                 </swiper-item>
             </block>
         </swiper>
-        <text class="index-con">{{current}} / {{product.picture.length}}</text>
+        <!-- <text class="index-con">{{current}} / {{product.picture.length}}</text> -->
     </view>
     <view class="product-detail">
         <view class="detail product-name">{{product.goods_name}}</view>
-        <view class="detail product-price">¥ {{product.goods_price}}</view>
+        <view class="detail product-price">{{product.goods_price}} 积分</view>
         <view class=" product-market">
             <text>市场价：¥ {{product.market_price}}</text>
             <text class="product-sold">已售{{product.sold_count}}件</text>
