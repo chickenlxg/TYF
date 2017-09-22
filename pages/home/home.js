@@ -52,7 +52,7 @@ Page({
       },
     })
     wx.request({
-      url: app.serverURL + '/get/features.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/features.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
@@ -117,6 +117,7 @@ Page({
     var activityType = event.currentTarget.dataset.activityType;
     var activityId = event.currentTarget.dataset.activityId;
     var activityTitle = event.currentTarget.dataset.activityTitle;
+    var productId = event.currentTarget.dataset.productId;
     var activityUrl;
     switch (activityType) {
       case '1':
@@ -133,6 +134,14 @@ Page({
     }
     wx.navigateTo({
       url: activityUrl
+    });
+  },
+
+  navigateToProduct(event) {
+    var productId = event.currentTarget.dataset.productId;
+    var productUrl = "../products/products?id=" + productId;
+    wx.navigateTo({
+      url: productUrl
     });
   }
 

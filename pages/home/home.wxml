@@ -33,8 +33,8 @@ upper-threshold="10"
       <text>热销商品</text>
     </view>
    <block  wx:for="{{features}}" wx:for-item="feature" >
-      <view wx:if="{{feature.is_sold_out}}" class="feature clearfix" data-goods-id="{{feature.goods_id}}">
-        <image mode="aspectFill" src="{{feature.image_url}}"></image>
+      <view wx:if="{{feature.is_sold_out}}" class="feature clearfix" data-goods-id="{{feature.id}}">
+        <image mode="aspectFill" src="{{feature.covers_image}}"></image>
         <view  class="sold-out-overlay">
          <text class="sold-out-tag">已售罄</text>
            </view>
@@ -43,12 +43,12 @@ upper-threshold="10"
        </view>
          <label class="sold-out-price">¥ {{feature.goods_price}}</label>
         </view>
-      <view wx:else class="feature clearfix" goodsId="{{feature.goods_id}}" bindtap="navigateToProduct">   
-       <image mode="aspectFill" src="{{feature.image_url}}"></image>
+      <view wx:else class="feature clearfix" data-product-id="{{feature.id}}"  bindtap="navigateToProduct">   
+       <image mode="aspectFill" src="{{feature.covers_image}}"></image>
         <view class="title-wrapper">
         <label class="title">{{feature.goods_name}}</label>
       </view>
-      <label class="price">¥ {{feature.goods_price}}</label>
+      <label class="price">{{feature.goods_price}} 积分</label>
     </view>
     </block>
   </view>

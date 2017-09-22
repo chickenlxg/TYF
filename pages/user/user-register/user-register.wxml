@@ -1,0 +1,32 @@
+<scroll-view scroll-y="trues" class="user">
+  <view class="info">
+    <view class="info-wrap">
+      <image class="info-icon" src="{{userInfo.avatarUrl}}"></image>
+      <view class="info-name">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+  <form bindsubmit="formSubmit" bindreset="formReset">
+
+    <view class="section">
+      <view class="section-item">
+        <text class="section-item-left">真实姓名</text>
+        <input name="name" class="section-item-right" placeholder="{{userInfo.nickName}}" />
+      </view>
+      <view class="section-item">
+        <text class="section-item-left">联系方式</text>
+        <input name="tel" class="section-item-right" placeholder="请输入手机号" />
+      </view>
+      <view class="section-item">
+        <text class="section-item-left">出生年月</text>
+        <picker mode="date" name="age" value="{{date}}"  start="1900-01-01" end="2099-01-01" bindchange="bindDateChange">
+          <view class="picker"> {{date}} </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="btn-area">
+      <button formType="submit" class='btn'>注册</button>
+    </view>
+  </form>
+</scroll-view>
