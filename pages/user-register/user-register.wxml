@@ -15,7 +15,7 @@
       </view>
       <view class="section-item">
         <text class="section-item-left">联系方式</text>
-        <input name="tel" class="section-item-right" placeholder="请输入手机号" />
+        <input name="tel" type='number' class="section-item-right" placeholder="请输入手机号" />
       </view>
       <view class="section-item">
         <text class="section-item-left">出生年月</text>
