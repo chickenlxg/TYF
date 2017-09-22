@@ -14,7 +14,7 @@
     "pages/user/user-info/user-info",
     "pages/user/user-info/tel-bind/tel-bind",
     "pages/user/user-info/username-edit/username-edit",
-    "pages/user/user-register/user-register",
+    "pages/user-register/user-register",
     "pages/orders/orders",
     "pages/order-detail/order-detail",
     "pages/about/about",
@@ -55,12 +55,6 @@
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user-selected.png",
         "text": "我的"
-      },
-      {
-        "pagePath": "pages/user/user-register/user-register",
-        "iconPath": "images/user.png",
-        "selectedIconPath": "images/user-selected.png",
-        "text": "注册"
       }
     ]
   }

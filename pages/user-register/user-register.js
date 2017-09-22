@@ -29,11 +29,15 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        if (res.data == 'ok'){
-          wx.navigateTo({
-            url: '../user'
-          });
-        }
+        wx.navigateBack({
+          delta:1
+        })
+        wx.showToast({
+          title: '注册成功',
+          icon: 'success',
+          duration: 1200
+        }) 
+
       },
     });
   },
@@ -41,6 +45,5 @@ Page({
   bindDateChange: function (e) { 
     this.setData({ date: e.detail.value }) 
   }
-
 
 });

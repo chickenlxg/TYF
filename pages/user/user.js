@@ -53,7 +53,7 @@ Page({
         icon: 'images/about.png',
         text: '关于商城',
         tip: '',
-        url: '../about/about'
+        url: '../user-register/user-register'
       }
     ]
   },

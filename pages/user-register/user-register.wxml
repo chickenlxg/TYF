@@ -6,7 +6,7 @@
     </view>
   </view>
 
-  <form bindsubmit="formSubmit" bindreset="formReset">
+  <form bindsubmit="formSubmit" >
 
     <view class="section">
       <view class="section-item">
@@ -26,7 +26,8 @@
     </view>
 
     <view class="btn-area">
-      <button formType="submit" class='btn'>注册</button>
+      <button formType="submit" class='btn' >注册</button>
     </view>
   </form>
+
 </scroll-view>
