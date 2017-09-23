@@ -42,7 +42,7 @@
         <view class="adding-to-cart-popup">
             <view class="header">
                 <view class="close" bindtap="closePop"><image src="close.png"></image></view>
-                <image alt="" class="product-image" src="{{product.goods_image}}"></image>
+                <image alt="" class="product-image" src="{{product.picture}}"></image>
                 <view class="product-info">
                     <view class="stock-price text-primary p">￥ {{goodsPrice}}</view>
                     <view class="stock p">库存{{totalStock}}件</view>

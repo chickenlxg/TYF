@@ -24,7 +24,8 @@ Page({
         'content-type': 'application/json'
       },
       data: {
-        id: productId
+        id: productId,
+        userID: app.globalData.userID
       },
       success: function (res) {
         console.log(res);
@@ -32,7 +33,7 @@ Page({
         that.setData({
           product: res.data,
           wxParseData: WxParse('html', product.goods_detail ),
-          cartNum: 8
+          cartNum: res.data.cartNum
         });
       }
     })
@@ -291,8 +292,9 @@ Page({
 
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/addcart.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/addcart.php', //仅为示例，并非真实的接口地址
       data: {
+        user_id: app.globalData.userID,
         goods_id: this.data.product.id,
         goods_number: this.data.buyNum
       },
