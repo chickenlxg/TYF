@@ -18,9 +18,12 @@ Page({
     }
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/cart.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/cart.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
+      },
+      data: {
+        userID: app.globalData.userID
       },
       success: function (res) {
         var totalNumber = 0;
@@ -28,23 +31,25 @@ Page({
         var buyNumber = 0;
         var buyPrice = 0;
         res.data.forEach(item => {
+          console.log(item);
+          item.PNUM = 1 * item.PNUM;
           // 保留两位小数点
-          item.real_price = item.real_price.toFixed(2);
-          item.market_price = item.market_price.toFixed(2);
+          // item.goods_price = item.goods_price.toFixed(2);
+          // item.market_price = item.market_price.toFixed(2);
           if (!item.status) {
             that.setData({ checkedStatus: false });
           } else {
-            buyNumber += item.goods_number;
-            buyPrice += item.goods_number * item.real_price;
+            buyNumber += item.PNUM;
+            buyPrice += item.PNUM * item.goods_price;
           }
-          totalNumber += item.goods_number;
-          totalPrice += item.goods_number * item.real_price;
-          if (item.goods_number == item.stock_num) {
+          totalNumber += item.PNUM;
+          totalPrice += item.PNUM * item.goods_price;
+          if (item.PNUM == item.total_stock) {
             item.plus_class = "disabled";
           } else {
             item.plus_class = "";
           }
-          if (item.goods_number == 1) {
+          if (item.PNUM == 1) {
             item.decr_class = "disabled";
           } else {
             item.decr_class = "";
@@ -54,9 +59,11 @@ Page({
           cartList: res.data,
           loading: false,
           totalNumber: totalNumber,
-          totalPrice: totalPrice.toFixed(2),
+          // totalPrice: totalPrice.toFixed(2),
+          totalPrice: totalPrice,
           buyNumber: buyNumber,
-          buyPrice: buyPrice.toFixed(2)
+          // buyPrice: buyPrice.toFixed(2),
+          buyPrice: buyPrice
         });
       },
     })
@@ -75,9 +82,9 @@ Page({
     checkedStatus = checkedStatus === true;
     var changeStatus = true;
     this.data.cartList.forEach(item => {
-      if (item.id == cartId || cartId == 0) {
+      if (item.pid == cartId || cartId == 0) {
         if (item.status != !checkedStatus) {
-          id.push(item.id);
+          id.push(item.pid);
         }
         item.status = cartId == 0 ? !checkedStatus : !item.status;
 
@@ -85,11 +92,11 @@ Page({
       if (!item.status) {
         changeStatus = false;
       } else {
-        buyNumber += item.goods_number;
-        buyPrice += item.goods_number * item.real_price;
+        buyNumber += item.PNUM;
+        buyPrice += item.PNUM * item.goods_price;
       }
-      totalNumber += item.goods_number;
-      totalPrice += item.goods_number * item.real_price;
+      totalNumber += item.PNUM;
+      totalPrice += item.PNUM * item.goods_price;
     });
     // resource.updCartStatus(id.join()).then(res => {});
     changeStatus = cartId == 0 ? !checkedStatus : changeStatus;
@@ -111,9 +118,9 @@ Page({
     var buyNumber = 0;
     var buyPrice = 0;
     this.data.cartList.forEach(item => {
-      if (item.id == cartId) {
+      if (item.pid == cartId) {
         if (optType == 'plus') {
-          if (item.stock_num == item.goods_number) {
+          if (item.total_stock == item.PNUM) {
             this.setData({
               toast: {
                 toastClass: 'yatoast',
@@ -129,13 +136,13 @@ Page({
               });
             }, 2000);
           } else {
-            item.goods_number++;
+            item.PNUM++;
             // resource.updCartNumber(cartId, optType);
           }
 
         } else {
 
-          if (item.goods_number <= 1) {
+          if (item.PNUM <= 1) {
             this.setData({
               toast: {
                 toastClass: 'yatoast',
@@ -151,29 +158,40 @@ Page({
               });
             }, 2000);
           } else {
-            item.goods_number--;
+            item.PNUM--;
             // resource.updCartNumber(cartId, optType);
           }
         }
-        if (item.goods_number == item.stock_num) {
+        if (item.PNUM == item.total_stock) {
           item.plus_class = "disabled";
         } else {
           item.plus_class = "";
         }
-        if (item.goods_number == 1) {
+        if (item.PNUM == 1) {
           item.decr_class = "disabled";
         } else {
           item.decr_class = "";
         }
+        wx.request({
+          url: app.serverURL + '/get/web/productNumChange.php', //仅为示例，并非真实的接口地址
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            id: cartId,
+            productNum: item.PNUM
+          }
+        })
       }
+
       if (!item.status) {
 
       } else {
-        buyNumber += item.goods_number;
-        buyPrice += item.goods_number * item.real_price;
+        buyNumber += item.PNUM;
+        buyPrice += item.PNUM * item.goods_price;
       }
-      totalNumber += item.goods_number;
-      totalPrice += item.goods_number * item.real_price;
+      totalNumber += item.PNUM;
+      totalPrice += item.PNUM * item.goods_price;
     });
     this.setData({
       cartList: this.data.cartList,
@@ -207,6 +225,7 @@ Page({
   },
   // 去除购物车物品
   delProduct(event) {
+    var that = this;
     wx.showModal({
       content: '你确定在购物车中删除该商品',
       showCancel: true,
@@ -222,32 +241,42 @@ Page({
         var buyPrice = 0;
         var delKey = 0;
         cartList.forEach((item, key) => {
-          if (item.id == id) {
+          if (item.pid == id) {
             delKey = key;
           } else {
             if (!item.status) {
 
             } else {
-              buyNumber += item.goods_number;
-              buyPrice += item.goods_number * item.real_price;
+              buyNumber += item.PNUM;
+              buyPrice += item.PNUM * item.goods_price;
             }
-            totalNumber += item.goods_number;
-            totalPrice += item.goods_number * item.real_price;
+            totalNumber += item.PNUM;
+            totalPrice += item.PNUM * item.goods_price;
           }
         });
         cartList.splice(delKey, 1);
-        resource.delCartProduct(id).then(res => {
-          console.log(res);
-          if (res.statusCode == 200) {
-            this.setData({
-              cartList: cartList,
-              totalNumber: totalNumber,
-              totalPrice: totalPrice.toFixed(2),
-              buyNumber: buyNumber,
-              buyPrice: buyPrice.toFixed(2)
-            });
+
+        //删除购物车信息
+        wx.request({
+          url: app.serverURL + '/get/web/cartDel.php', //仅为示例，并非真实的接口地址
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            id: id
+          },
+          success: function (res) {
+            if (res.statusCode == 200) {
+              that.setData({
+                cartList: cartList,
+                totalNumber: totalNumber,
+                totalPrice: totalPrice.toFixed(2),
+                buyNumber: buyNumber,
+                buyPrice: buyPrice.toFixed(2)
+              });
+            }
           }
-        });
+        })
       }
     });
   },
