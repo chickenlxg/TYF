@@ -7,7 +7,6 @@ App({
     wx.login({
       success: res => {
         if (res.code) {
-          console.log(res);
           //发起网络请求
           wx.request({
             url: this.serverURL + '/get/web/userinfo.php',
@@ -16,6 +15,15 @@ App({
             },
             success: res => {
               this.globalData.userID = res.data;
+              wx.request({
+                url: this.serverURL + '/get/web/isUser.php',
+                data: {
+                  code: res.data
+                },
+                success: e => {
+                  this.globalData.isUser = e.data;
+                }
+              })
             }
           })
         } else {
@@ -30,7 +38,6 @@ App({
         console.log(res);
         // 可以将 res 发送给后台解码出 unionId
         this.globalData.userInfo = res.userInfo
-
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         if (this.userInfoReadyCallback) {
@@ -38,6 +45,8 @@ App({
         }
       }
     })
+
+    
 
     // var that = this;
     // wx.request({
@@ -75,6 +84,7 @@ App({
   globalData: {
     userInfo: null,
     userID: null,
+    isUser:null
     // token: null,
     // shop_id: 1,
     // shopInfo: null,

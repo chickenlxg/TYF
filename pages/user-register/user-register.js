@@ -28,7 +28,8 @@ Page({
       header: {
         'content-type': 'application/json'
       },
-      success: function (res) {
+      success: res =>{
+        app.globalData.isUser = '1';
         wx.navigateBack({
           delta:1
         })

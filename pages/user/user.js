@@ -58,9 +58,14 @@ Page({
     ]
   },
   onShow() {
-
+    if (app.globalData.isUser == '0') {
+      wx.navigateTo({
+        url: '../user-register/user-register'
+      });
+    }
   },
   onLoad() {
+    
     var that = this;
     wx.request({
       url: app.serverURL + '/get/olderdata.php', //仅为示例，并非真实的接口地址
