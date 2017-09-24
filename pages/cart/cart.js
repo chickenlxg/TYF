@@ -33,6 +33,7 @@ Page({
         res.data.forEach(item => {
           console.log(item);
           item.PNUM = 1 * item.PNUM;
+          item.status = 1 * item.status;
           // 保留两位小数点
           // item.goods_price = item.goods_price.toFixed(2);
           // item.market_price = item.market_price.toFixed(2);
@@ -87,7 +88,16 @@ Page({
           id.push(item.pid);
         }
         item.status = cartId == 0 ? !checkedStatus : !item.status;
-
+        wx.request({
+          url: app.serverURL + '/get/web/changeSelect.php', //仅为示例，并非真实的接口地址
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            id: item.pid,
+            status: item.status
+          }
+        })
       }
       if (!item.status) {
         changeStatus = false;
