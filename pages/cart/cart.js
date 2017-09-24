@@ -9,6 +9,7 @@ Page({
     checkedStatus: true,
     buyNumber: 0,
     buyPrice: 0,
+    orderSn:null
   },
   onShow() {
     if (app.globalData.isUser == '0'){
@@ -228,10 +229,40 @@ Page({
           }
         });
       }, 2000);
+    }else{
+      var that = this;
+      wx.request({
+        url: app.serverURL + '/get/web/orders.php', //仅为示例，并非真实的接口地址
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          userID: app.globalData.userID
+        },
+        success: function (res) {
+          //添加订单号
+          that.data.cartList.forEach(item => {
+            if (item.status == 1) {
+              wx.request({
+                url: app.serverURL + '/get/web/cartOrderSnAdd.php', //仅为示例，并非真实的接口地址
+                header: {
+                  'content-type': 'application/json'
+                },
+                data: {
+                  id: item.pid,
+                  orderSn: res.data
+                }
+              })
+            }
+          });
+        }
+      })
+
+
+      wx.navigateTo({
+        url: '../settlement/settlement',
+      });
     }
-    wx.navigateTo({
-      url: '../settlement/settlement',
-    });
   },
   // 去除购物车物品
   delProduct(event) {
