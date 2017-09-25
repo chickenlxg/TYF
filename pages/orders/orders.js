@@ -27,11 +27,29 @@ Page({
     }
 
     wx.request({
-      url: app.serverURL + '/get/olderdata.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/olderdata.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
+      data: {
+        userID: app.globalData.userID
+      },
       success: function (res) {
+        console.log(res);
+        res.data.forEach((itm) => {
+          wx.request({
+            url: app.serverURL + '/get/web/cart.php', //仅为示例，并非真实的接口地址
+            header: {
+              'content-type': 'application/json'
+            },
+            data: {
+              orderSn: itm.orderSn
+            },
+            success: function (e) {
+              itm.products = e.data
+            },
+          });
+        });
         that.setOrderData(res.data);
         that.setData({
           orderList: res.data,
@@ -90,7 +108,6 @@ Page({
   // },
   cancelOrder(e) {
     const that = this;
-    console.log(that)
     const orderSn = e.target.dataset.orderSn;
     wx.showModal({
     content: '你是否需要取消订单',
@@ -118,7 +135,6 @@ Page({
       }
     });
     // resource.cancalOrder(orderSn).then((res) => {
-    //   console.log(res);
     //   if (res.statusCode === 200) {
     //     resource.successToast(() => {
     //       that.setOrderData(res.data);
@@ -158,7 +174,6 @@ Page({
   },
    confirmOrder(e) {
     const that = this;
-    console.log(that)
     const orderSn = e.target.dataset.orderSn;
     wx.showModal({
     content: '确定收货',
