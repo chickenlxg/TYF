@@ -24,7 +24,8 @@ Page({
         'content-type': 'application/json'
       },
       data: {
-        userID: app.globalData.userID
+        userID: app.globalData.userID,
+        orderSn:'no'
       },
       success: function (res) {
         var totalNumber = 0;
@@ -237,7 +238,8 @@ Page({
           'content-type': 'application/json'
         },
         data: {
-          userID: app.globalData.userID
+          userID: app.globalData.userID,
+          totalPrice: this.data.totalPrice
         },
         success: function (res) {
           //添加订单号
@@ -255,13 +257,12 @@ Page({
               })
             }
           });
+
+          wx.navigateTo({
+            url: '../settlement/settlement?orderSn=' + res.data
+          });
         }
       })
-
-
-      wx.navigateTo({
-        url: '../settlement/settlement',
-      });
     }
   },
   // 去除购物车物品

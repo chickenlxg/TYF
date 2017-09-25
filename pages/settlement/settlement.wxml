@@ -20,7 +20,7 @@
         <view class="items-list">
             <view wx:for="{{cartList}}" wx:for-item="product" class="product">
                 <view class="img">
-                    <image class="image" src="{{product.thumb_url}}" mode="scaleToFill"></image>
+                    <image class="image" src="{{product.covers_image}}" mode="scaleToFill"></image>
                 </view>
                 <view class="param">
                     <view class="title">
@@ -30,8 +30,8 @@
                         <text>{{product.goods_attr}}</text>
                     </view> -->
                     <view class="price">
-                        <view class="real">￥ {{product.real_price}}
-                            <view class="num">x{{product.goods_number}}
+                        <view class="real"> {{product.goods_price}} 积分
+                            <view class="num">x{{product.PNUM}}
                             </view>
                         </view>
                     </view>
@@ -40,10 +40,10 @@
         </view>
         <view class="statistics">
             <view class="border-bottom"> 商品总额
-                <text> ￥ {{totalPay}}</text>
+                <text> {{totalPay}} 积分</text>
             </view>
             <view class="border-bottom"> 现有积分
-                <text> 分</text>
+                <text> {{userIntegral}} 积分</text>
             </view>
         </view>
         <!-- <view class="wechat">
@@ -52,7 +52,7 @@
         </view> -->
         <view class="settlement"> 
             <view class="text"><text>合计：</text>
-            <text class="price">￥ {{totalPay}}</text>
+            <text class="price"> {{totalPay}} 积分</text>
             </view>
             <button bindtap="postOrder">付款</button>
         </view>
