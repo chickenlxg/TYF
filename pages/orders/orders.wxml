@@ -1,6 +1,6 @@
 <import src="../../templates/toast/toast.wxml" />
 <template name="order-cell">
-    <view class="order-cell">
+    <view class="order-cell">{{uid}}
         <view class="cell-status">
         {{refund_status==="没有售后" ? order_status : "售后处理中"}}
         </view>

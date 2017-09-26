@@ -61,10 +61,10 @@ Page({
   setOrderData(data) {
     data.forEach((itm) => {
       itm.order = {
-        orderStatus: itm.order_status,
-        orderSn: itm.order_sn,
+        orderStatus: itm.status,
+        orderSn: itm.orderSn,
         subOrderSn : itm.sub_order_sn,
-        isButtonHidden : itm.order_status == "待支付" ? true: false,
+        isButtonHidden : itm.status == "1" ? true: false,
       };
     });
     return data;
