@@ -36,20 +36,6 @@ Page({
       },
       success: function (res) {
         console.log(res);
-        res.data.forEach((itm) => {
-          wx.request({
-            url: app.serverURL + '/get/web/cart.php', //仅为示例，并非真实的接口地址
-            header: {
-              'content-type': 'application/json'
-            },
-            data: {
-              orderSn: itm.orderSn
-            },
-            success: function (e) {
-              itm.products = e.data
-            },
-          });
-        });
         that.setOrderData(res.data);
         that.setData({
           orderList: res.data,
@@ -64,7 +50,7 @@ Page({
         orderStatus: itm.status,
         orderSn: itm.orderSn,
         subOrderSn : itm.sub_order_sn,
-        isButtonHidden : itm.status == "1" ? true: false,
+        isButtonHidden: itm.status == "未付款" ? true: false,
       };
     });
     return data;

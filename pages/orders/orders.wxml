@@ -1,12 +1,13 @@
 <import src="../../templates/toast/toast.wxml" />
 <template name="order-cell">
-    <view class="order-cell">{{uid}}
+    <view class="order-cell">{{orderSn}}{{ goods.length }}
         <view class="cell-status">
-        {{refund_status==="没有售后" ? order_status : "售后处理中"}}
+        <!-- {{refund_status==="没有售后" ? order_status : "售后处理中"}} -->
+        {{status}}
         </view>
-        <navigator url="../order-detail/order-detail?subOrderSn={{sub_order_sn}}" hover-class="none" class="cell-item">
+        <navigator url="../order-detail/order-detail?subOrderSn={{orderSn}}" hover-class="none" class="cell-item">
             <view class="{{goods.length===1?'':'hide'}}">
-                <image class="good-thumb" src="{{goods[0].thumb_url}}" alt="item"/>
+                <image class="good-thumb" src="{{goods[0].covers_image}}" alt="item"/>
                 <view class="item-content">
                     <view class="content-name">{{goods[0].goods_name}}</view>
                     <view class="content-attr">{{goods[0].goods_attr}}</view>
