@@ -32,20 +32,35 @@ Page({
         'content-type': 'application/json'
       },
       data: {
-        userID: app.globalData.userID
+        userID: app.globalData.userID,
+        activeNav: this.data.activeNav
       },
       success: function (res) {
-        console.log(res);
         that.setOrderData(res.data);
         that.setData({
           orderList: res.data,
           loading: false
         });
+        console.log(that.data.orderList);
+        
       },
     })
   },
   setOrderData(data) {
     data.forEach((itm) => {
+      var totalNumber = 0;
+      var totalPrice = 0;
+      itm.goods.forEach(item => {
+        // 保留两位小数点
+        // item.goods_price = item.goods_price.toFixed(2);
+        // item.market_price = item.market_price.toFixed(2);
+        item.PNUM *= 1;
+        totalNumber += item.PNUM;
+        totalPrice += item.PNUM * item.goods_price;
+      })
+
+      itm.totalNumber = totalNumber;
+      itm.totalPay = totalPrice;
       itm.order = {
         orderStatus: itm.status,
         orderSn: itm.orderSn,
@@ -57,18 +72,22 @@ Page({
   },
   changeList(e) {
     const that = this;
-    const alias = e.target.dataset.alias;
+    const alias = e.target.dataset.text;
 
     if (alias !== this.data.activeNav) {
       this.setData({
-        activeNav: e.target.dataset.alias,
+        activeNav: e.target.dataset.text,
         loading: true
       });
 
       wx.request({
-        url: app.serverURL + '/get/olderdata.php', //仅为示例，并非真实的接口地址
+        url: app.serverURL + '/get/web/olderdata.php', //仅为示例，并非真实的接口地址
         header: {
           'content-type': 'application/json'
+        },
+        data: {
+          userID: app.globalData.userID,
+          activeNav: e.target.dataset.text
         },
         success: function (res) {
           that.setOrderData(res.data);
@@ -76,8 +95,9 @@ Page({
             orderList: res.data,
             loading: false
           });
+
         },
-      });
+      })
     }
   },
   // getList() {

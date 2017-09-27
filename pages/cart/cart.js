@@ -239,7 +239,7 @@ Page({
         },
         data: {
           userID: app.globalData.userID,
-          totalPrice: this.data.totalPrice
+          totalPrice: this.data.buyPrice
         },
         success: function (res) {
           //添加订单号

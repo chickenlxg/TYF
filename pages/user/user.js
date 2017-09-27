@@ -6,7 +6,7 @@ Page({
       icon: 'images/order.png',
       text: '我的订单',
       tip: '',
-      url: '../orders/orders?t=all'
+      url: '../orders/orders?t=全部'
     },
     // 收货数量
     orderBadge: {
@@ -18,17 +18,17 @@ Page({
       {
         icon: 'images/to-be-paid.png',
         text: '待付款',
-        url: '../orders/orders?t=unpaid',
+        url: '../orders/orders?t=待付款',
         class: 'order-cell-icon-small'
       }, {
         icon: 'images/to-be-delivered.png',
         text: '待发货',
-        url: '../orders/orders?t=undelivered',
+        url: '../orders/orders?t=待发货',
         class: 'order-cell-icon-small',
       }, {
         icon: 'images/to-be-received.png',
         text: '待收货',
-        url: '../orders/orders?t=unreceived',
+        url: '../orders/orders?t=待收货',
         class: 'order-cell-icon-big'
       }
     ],
@@ -62,35 +62,34 @@ Page({
       wx.navigateTo({
         url: '../user-register/user-register'
       });
-    }
-  },
-  onLoad() {
-    
+    };
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/olderdata.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/olderdata.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
+      data: {
+        userID: app.globalData.userID,
+        activeNav: '全部'
+      },
       success: function (res) {
         const orderList = res.data;
+        console.log(orderList);
         that.countOrder(orderList);
       },
     });
     this.setData({
       userInfo: app.globalData.userInfo
-    });
-
-    console.log(this.data.userInfo.avatarUrl);
+    });  
   },
-
   countOrder(orderList) {
     /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
     this.orderBadge = { unpaid: 0, undelivered: 0, unreceived: 0 };
 
     for (let i = orderList.length - 1; i >= 0; i--) {
-      switch (orderList[i].order_status) {
-      case '待支付': this.orderBadge.unpaid += 1; break;
+      switch (orderList[i].status) {
+      case '待付款': this.orderBadge.unpaid += 1; break;
       case '待发货': this.orderBadge.undelivered += 1; break;
       case '待收货': this.orderBadge.unreceived += 1; break;
       default: break;

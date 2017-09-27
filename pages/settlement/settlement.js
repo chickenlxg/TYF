@@ -42,18 +42,10 @@ Page({
         console.log(res);
         var totalNumber = 0;
         var totalPrice = 0;
-        var buyNumber = 0;
-        var buyPrice = 0;
         res.data.forEach(item => {
           // 保留两位小数点
           // item.goods_price = item.goods_price.toFixed(2);
           // item.market_price = item.market_price.toFixed(2);
-          if (!item.status) {
-            that.setData({ checkedStatus: false });
-          } else {
-            buyNumber += item.PNUM;
-            buyPrice += item.PNUM * item.goods_price;
-          }
           totalNumber += item.PNUM;
           totalPrice += item.PNUM * item.goods_price;
         })
@@ -61,9 +53,7 @@ Page({
           cartList: res.data,
           loading: false,
           totalNumber: totalNumber,
-          totalPay: totalPrice,
-          buyNumber: buyNumber,
-          buyPrice: buyPrice
+          totalPay: totalPrice
         });
       },
     });
@@ -122,8 +112,8 @@ Page({
           console.log(res);
           if (res.statusCode == '200') {
             that.setData({ exec: false });
-            wx.navigateTo({
-              url: '../orders/orders?t=undelivered',
+            wx.switchTab({
+              url: '../user/user',
             });
           } else {
             console.log('false');
