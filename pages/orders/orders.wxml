@@ -1,6 +1,6 @@
 <import src="../../templates/toast/toast.wxml" />
 <template name="order-cell">
-    <view class="order-cell">{{orderSn}}{{ goods.length }}
+    <view class="order-cell">订单号：{{orderSn}}
         <view class="cell-status">
         <!-- {{refund_status==="没有售后" ? order_status : "售后处理中"}} -->
         {{status}}
@@ -11,11 +11,11 @@
                 <view class="item-content">
                     <view class="content-name">{{goods[0].goods_name}}</view>
                     <view class="content-attr">{{goods[0].goods_attr}}</view>
-                    <view class="content-count">￥{{goods[0].sum_price}}<view class="content-amount">×{{goods[0].goods_number}}</view></view>
+                    <view class="content-count">{{goods[0].goods_price}} 积分<view class="content-amount">×{{goods[0].PNUM}}</view></view>
                 </view>
             </view>
             <scroll-view scroll-x="true" class="{{goods.length===1?'hide':''}}">
-                <view style="display:inline-block;" wx:for="{{goods}}"><image class="good-thumb" src="{{item.thumb_url}}"></image></view>
+                <view style="display:inline-block;" wx:for="{{goods}}"><image class="good-thumb" src="{{item.covers_image}}"></image></view>
             </scroll-view>
         </navigator>
         <view class="cell-count">
@@ -27,12 +27,12 @@
             <!-- <button class="btn-order btn-solid-red">去支付</button> 
             <button class="btn-order btn-hollow-gray" data-order-id="{{order_sn}}" bindtap="cancalOrder">取消订单</button> -->
 
-            <button class="btn-order btn-solid-red" wx:if="{{ order.orderStatus==='待支付' }}" bindtap="payOrder" data-order-sn="{{order.orderSn}}">去支付</button>
+            <button class="btn-order btn-solid-red" wx:if="{{ order.orderStatus==='未付款' }}" bindtap="payOrder" data-order-sn="{{order.orderSn}}">去支付</button>
 
-            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待支付' }}" bindtap="cancelOrder" data-order-sn="{{order.orderSn}}">取消订单</button>
+            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='未付款' }}" bindtap="cancelOrder" data-order-sn="{{order.orderSn}}">取消订单</button>
 
-            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待发货'&&refund_status === '没有售后' }}" bindtap="drawbackOrder" data-order-sn="{{order.subOrderSn}}">申请退款</button>
-
+             <!-- <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待发货'&&refund_status === '没有售后' }}" bindtap="drawbackOrder" data-order-sn="{{order.subOrderSn}}">申请退款</button>  -->
+             <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待发货' }}" bindtap="drawbackOrder" data-order-sn="{{order.subOrderSn}}">申请退款</button> 
             <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="logistics" data-order-sn="{{order.subOrderSn}}">查看物流</button>
 
             <button class="btn-order btn-solid-red" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="confirmOrder" data-order-sn="{{order.subOrderSn}}">确认收货</button>
