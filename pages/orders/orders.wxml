@@ -5,7 +5,7 @@
         <view class="cell-status">
         {{refund_status==="没有售后" ? status : "售后处理中"}}
         </view>
-        <navigator url="../order-detail/order-detail?subOrderSn={{orderSn}}" hover-class="none" class="cell-item">
+        <navigator  url="../order-detail/order-detail?subOrderSn={{orderSn}}" hover-class="none" class="cell-item">
             <view class="{{goods.length===1?'':'hide'}}">
                 <image class="good-thumb" src="{{goods[0].covers_image}}" alt="item"/>
                 <view class="item-content">
@@ -31,12 +31,12 @@
 
             <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待付款' }}" bindtap="cancelOrder" data-order-sn="{{order.orderSn}}">取消订单</button>
 
-            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待发货'&&refund_status === '没有售后' }}" bindtap="drawbackOrder" data-order-sn="{{order.subOrderSn}}">申请退款</button> 
-            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="logistics" data-order-sn="{{order.subOrderSn}}">查看物流</button>
+            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待发货'&&refund_status === '没有售后' }}" bindtap="drawbackOrder" data-order-sn="{{order.orderSn}}">申请退款</button> 
+            <button class="btn-order btn-hollow-gray" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="logistics" data-order-sn="{{order.orderSn}}">查看物流</button>
 
-            <button class="btn-order btn-solid-red" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="confirmOrder" data-order-sn="{{order.subOrderSn}}">确认收货</button>
+            <button class="btn-order btn-solid-red" wx:if="{{ order.orderStatus==='待收货' }}" bindtap="confirmOrder" data-order-sn="{{order.orderSn}}">确认收货</button>
 
-            <button wx:if="{{ order.orderStatus==='交易成功'||order.orderStatus==='交易关闭'||order.orderStatus==='订单关闭'}}" bindtap="order.deleteOrder({ subOrderSn:order.data.sub_order_sn })">删除订单</button>
+            <button wx:if="{{ order.orderStatus==='交易成功'||order.orderStatus==='交易关闭'||order.orderStatus==='订单关闭'}}" bindtap="deleteOrder" data-order-sn="{{order.orderSn}}">删除订单</button>
         </view>
     </view>
 </template>

@@ -71,7 +71,7 @@ Page({
       },
       data: {
         userID: app.globalData.userID,
-        activeNav: '全部'
+        activeNav: 'user'
       },
       success: function (res) {
         const orderList = res.data;
