@@ -1,3 +1,6 @@
+var app = getApp();
+import city from '../../lib/city';
+import tips from '../../lib/tips';
 Page({
   data: {
     loading: true,
@@ -33,7 +36,7 @@ Page({
   onLoad(options) {
     this.setData({ addressid: options.id });
     var that = this;
- 
+
     if (options.id) {
       resource.fetchDetailAddress(options.id).then((res) => {
         this.data.items.is_default = res.data.is_default;
@@ -48,12 +51,12 @@ Page({
           items: this.data.items
         });
         //this.setDefault();
-          city.init(that);
+        city.init(that);
       });
     } else {
-        city.init(that);
+      city.init(that);
     }
-     
+
   },
   listenerReciverInput(e) {
     this.data.consignee = e.detail.value;
@@ -88,29 +91,51 @@ Page({
     if (this.data.consignee.length < 2) { that.showToast('收货人姓名限制为2~15个字符'); return; }
     if (!this.data.mobile) { that.showToast('手机号不能为空'); return; }
     if (!/^1[3|4|5|7|8]\d{9}$/.test(this.data.mobile)) { that.showToast('手机格式有误，请重新输入'); return; }
-     if (this.data.city.provinceIndex == 0) { that.showToast('省市地址不能为空'); return; }
+    if (this.data.addressSelect.provinceIndex == 0) { that.showToast('省市地址不能为空'); return; }
     if (!this.data.address) { that.showToast('街道地址不能为空'); return; }
     if (this.data.address.length < 5) { that.showToast('街道地址字数必须在5~60之间'); return; }
 
-    console.log(this.data.city);
-    const data = {
-      consignee: this.data.consignee,
-      province: this.data.addressSelect.provinceIdx[this.data.addressSelect.provinceIndex],
-      city: this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex],
-      county: this.data.addressSelect.districtIdx[this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex]][this.data.addressSelect.districtIndex],
-      address: this.data.address,
-      mobile: this.data.mobile,
-      is_default: this.data.items.is_default ? 1 : 0
-    };
-    resource.postDetailAddress(this.data.addressid, data).then((res) => {
-      if (res.statusCode === 200 || res.statusCode === 201) {
-        resource.successToast(() => {
-          wx.navigateTo({
-            url: '../addresses/addresses'
-          });
+    // const data = {
+    //   consignee: this.data.consignee,
+    //   province: this.data.addressSelect.provinceIdx[this.data.addressSelect.provinceIndex],
+    //   city: this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex],
+    //   county: this.data.addressSelect.districtIdx[this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex]][this.data.addressSelect.districtIndex],
+    //   address: this.data.address,
+    //   mobile: this.data.mobile,
+    //   is_default: this.data.items.is_default ? 1 : 0
+    // };
+    // console.log(data);
+
+    wx.request({
+      url: app.serverURL + '/get/web/addressAdd.php', //仅为示例，并非真实的接口地址
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        userID: app.globalData.userID,
+        consignee: this.data.consignee,
+        province: this.data.addressSelect.provinceIdx[this.data.addressSelect.provinceIndex],
+        city: this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex],
+        county: this.data.addressSelect.districtIdx[this.data.addressSelect.cityIdx[this.data.addressSelect.provinceIndex][this.data.addressSelect.cityIndex]][this.data.addressSelect.districtIndex],
+        address: this.data.address,
+        mobile: this.data.mobile,
+        is_default: this.data.items.is_default ? 1 : 0
+      },
+      success: function (res) {
+        wx.navigateTo({
+          url: '../addresses/addresses'
         });
-      } else { console.log(res); }
-    });
+      },
+    })
+    // resource.postDetailAddress(this.data.addressid, data).then((res) => {
+    //   if (res.statusCode === 200 || res.statusCode === 201) {
+    //     resource.successToast(() => {
+    //       wx.navigateTo({
+    //         url: '../addresses/addresses'
+    //       });
+    //     });
+    //   } else { console.log(res); }
+    // });
   },
   bindPickerChange(e) {
     this.setData({

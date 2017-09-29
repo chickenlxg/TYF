@@ -1,4 +1,5 @@
 var app = getApp();
+import tips from '../../lib/tips';
 Page({
   data: {
     // 设置菊花初始状态
@@ -12,7 +13,7 @@ Page({
   setDefaultStyle(list, id) {
     list.forEach((itm) => {
       if (itm) {
-        itm.items.is_default = +itm.address_id === id;
+        itm.items.is_default = +itm.id === id;
         itm.items.iconType = itm.items.is_default ? 'success' : 'circle';
         itm.items.iconColor = itm.items.iconType === 'success' ? '#FF2D4B' : '';
       }
@@ -32,26 +33,39 @@ Page({
 
       var that = this;
       wx.request({
-        url: app.serverURL + '/get/deleteAddress.php', //仅为示例，并非真实的接口地址
+        url: app.serverURL + '/get/web/deleteAddress.php', //仅为示例，并非真实的接口地址
         header: {
           'content-type': 'application/json'
         },
+        data: {
+          checkedId: id
+        },
         success: function (res) {
+          
           if (res.statusCode === 200) {
-            console.log('111111');
-              const defaultData = addressList.find(itm => itm.items.is_default === true);
-              if (+defaultData.address_id === +id && addressList.length > 0) {
-                addressList = addressList.filter(itm => +itm.address_id !== +id);
+              const defaultData = addressList.find(itm => itm.items.is_default === 1);
+              console.log(defaultData);
+              if (+defaultData.id === +id && addressList.length > 1) {
+                addressList = addressList.filter(itm => +itm.id !== +id);
                 // addressList.forEach((itm) => {
 
                 // });
-                // addressList[0].items.is_default = true;
-                // addressList[0].items.iconType = 'success';
-                // addressList[0].items.iconColor = '#FF2D4B';
+                addressList[0].items.is_default = 1;
+                wx.request({
+                  url: app.serverURL + '/get/web/setDefaultAddress.php', //仅为示例，并非真实的接口地址
+                  data: {
+                    checkedId: addressList[0].id,
+                    userID: app.globalData.userID
+                  },
+                  header: {
+                    'content-type': 'application/json'
+                  }
+                })
+                addressList[0].items.iconType = 'success';
+                addressList[0].items.iconColor = '#FF2D4B';
               }
               that.setData({
-                defaultId: defaultData.address_id,
-                addressesList: addressList.filter(itm => +itm.address_id !== +id)
+                addressesList: addressList.filter(itm => +itm.id !== +id)
               });
               wx.showToast({
                 title: '成功',
@@ -70,9 +84,10 @@ Page({
 
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/setDefaultAddress.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/setDefaultAddress.php', //仅为示例，并非真实的接口地址
       data: {
-        x: checkedId,
+        checkedId: checkedId,
+        userID: app.globalData.userID
       },
       header: {
         'content-type': 'application/json'
@@ -80,14 +95,15 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           setFlag = true;
-          // this.setDefaultStyle(this.data.addressesList, checkedId);   设置默认地址
-          // this.setData({ addressesList: this.data.addressesList });
+          that.setDefaultStyle(that.data.addressesList, checkedId);   //设置默认地址
+          that.setData({ addressesList: that.data.addressesList });
+          console.log(that.data.addressesList);
         } else {
           setFlag = false;
         }
         if (setFlag) {
           wx.showToast({
-            title: '默认地址设置成功',
+            title: '设置成功!',
             icon: 'success'
           });
         } else {
@@ -97,35 +113,39 @@ Page({
     })
   },
   onLoad() {
-    // tips.toast(this.data.tipsData);
-    // const tipsData = {
-    //   title: 'sku不足zz',
-    //   duration: 2000,
-    //   isHidden: false
-    // };
-    // this.setData({
-    //   tipsData
-    // });
-    // setTimeout(() => {
-    //   tipsData.isHidden = true;
-    //   this.setData({
-    //     tipsData
-    //   });
-    // }, 3000);
+    tips.toast(this.data.tipsData);
+    const tipsData = {
+      title: 'sku不足zz',
+      duration: 2000,
+      isHidden: false
+    };
+    this.setData({
+      tipsData
+    });
+    setTimeout(() => {
+      tipsData.isHidden = true;
+      this.setData({
+        tipsData
+      });
+    }, 3000);
 
 
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/address.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/addressGet.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
+      },
+      data: {
+        userID: app.globalData.userID
       },
       success: function (res) {
         if (res.data) {
           res.data.forEach((itm) => {
-            itm.overlayConfirm = false;
+            // itm.overlayConfirm = false;
+            itm.is_default *=1;
             itm.items = {
-              id: itm.address_id,
+              id: itm.id,
               is_default: itm.is_default,
               isgroup: true,
               labelText: '设置为默认',
@@ -133,7 +153,6 @@ Page({
             };
             itm.items.iconColor = itm.items.iconType === 'success' ? '#FF2D4B' : '';
           });
-          console.log(res);
           that.setData({
             addressesList: res.data,
             loading: false

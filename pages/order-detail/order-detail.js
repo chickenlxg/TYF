@@ -4,22 +4,23 @@ Page({
   data: {
     loading: true
   },
-  onLoad({ subOrderSn }) {
-    request({ path: `/clientOrderDetail/${subOrderSn}` }).then(({ data }) => {
-      let address = { hasData: false };
-      address = data.consignee ? {
-        hasData: true,
-        consignee: data.consignee,
-        mobile: data.mobile,
-        detail_address: data.detail_address,
-        arrowShow: 'display-none'
-      } : { hasData: false };
-      this.setData({
-        address,
-        goods: data.goods,
-        order: data
-      });
-    });
+  onLoad(options) {
+    
+    // request({ path: `/clientOrderDetail/${subOrderSn}` }).then(({ data }) => {
+    //   let address = { hasData: false };
+    //   address = data.consignee ? {
+    //     hasData: true,
+    //     consignee: data.consignee,
+    //     mobile: data.mobile,
+    //     detail_address: data.detail_address,
+    //     arrowShow: 'display-none'
+    //   } : { hasData: false };
+    //   this.setData({
+    //     address,
+    //     goods: data.goods,
+    //     order: data
+    //   });
+    // });
   },
   cancleOrder() {
     const outTradeNo = this.data.order.order_sn;
