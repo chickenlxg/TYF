@@ -15,6 +15,13 @@ Page({
       if (itm) {
         itm.items.is_default = +itm.id === id;
         itm.items.iconType = itm.items.is_default ? 'success' : 'circle';
+        if (itm.id == id) {
+          itm.is_default = 1;
+          itm.items.is_default = 'true';
+        } else {
+          itm.is_default = 0;
+          itm.items.is_default = 'false';
+        }
         itm.items.iconColor = itm.items.iconType === 'success' ? '#FF2D4B' : '';
       }
     });
@@ -30,7 +37,6 @@ Page({
     let addressList = this.data.addressesList;
 
     this.confirmToast(() => {
-
       var that = this;
       wx.request({
         url: app.serverURL + '/get/web/deleteAddress.php', //仅为示例，并非真实的接口地址
@@ -41,37 +47,37 @@ Page({
           checkedId: id
         },
         success: function (res) {
-          
-          if (res.statusCode === 200) {
-              const defaultData = addressList.find(itm => itm.items.is_default === 1);
-              console.log(defaultData);
-              if (+defaultData.id === +id && addressList.length > 1) {
-                addressList = addressList.filter(itm => +itm.id !== +id);
-                // addressList.forEach((itm) => {
 
-                // });
-                addressList[0].items.is_default = 1;
-                wx.request({
-                  url: app.serverURL + '/get/web/setDefaultAddress.php', //仅为示例，并非真实的接口地址
-                  data: {
-                    checkedId: addressList[0].id,
-                    userID: app.globalData.userID
-                  },
-                  header: {
-                    'content-type': 'application/json'
-                  }
-                })
-                addressList[0].items.iconType = 'success';
-                addressList[0].items.iconColor = '#FF2D4B';
-              }
-              that.setData({
-                addressesList: addressList.filter(itm => +itm.id !== +id)
-              });
-              wx.showToast({
-                title: '成功',
-                icon: 'success',
-                duartion: '80000',
-              });
+          if (res.statusCode === 200) {
+            const defaultData = addressList.find(itm => itm.is_default === 1);
+            if (+defaultData.id === +id && addressList.length > 1) {
+              addressList = addressList.filter(itm => +itm.id !== +id);
+              // addressList.forEach((itm) => {
+
+              // });
+              addressList[0].is_default = 1;
+              addressList[0].items.is_default = 'true';
+              wx.request({
+                url: app.serverURL + '/get/web/setDefaultAddress.php', //仅为示例，并非真实的接口地址
+                data: {
+                  checkedId: addressList[0].id,
+                  userID: app.globalData.userID
+                },
+                header: {
+                  'content-type': 'application/json'
+                }
+              })
+              addressList[0].items.iconType = 'success';
+              addressList[0].items.iconColor = '#FF2D4B';
+            }
+            that.setData({
+              addressesList: addressList.filter(itm => +itm.id !== +id)
+            });
+            wx.showToast({
+              title: '成功',
+              icon: 'success',
+              duartion: '80000',
+            });
           }
         },
       })
@@ -97,7 +103,6 @@ Page({
           setFlag = true;
           that.setDefaultStyle(that.data.addressesList, checkedId);   //设置默认地址
           that.setData({ addressesList: that.data.addressesList });
-          console.log(that.data.addressesList);
         } else {
           setFlag = false;
         }
@@ -143,10 +148,10 @@ Page({
         if (res.data) {
           res.data.forEach((itm) => {
             // itm.overlayConfirm = false;
-            itm.is_default *=1;
+            itm.is_default *= 1;
             itm.items = {
               id: itm.id,
-              is_default: itm.is_default,
+              is_default: itm.is_default ? 'ture' : 'false',
               isgroup: true,
               labelText: '设置为默认',
               iconType: itm.is_default ? 'success' : 'circle'

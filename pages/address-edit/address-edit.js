@@ -10,6 +10,7 @@ Page({
     address: '',
     addressid: '',
     items: {
+      id : null,
       labelText: '设置为默认',
       iconType: 'circle',
       is_default: false
@@ -34,25 +35,56 @@ Page({
     });
   },
   onLoad(options) {
+    console.log(options);
     this.setData({ addressid: options.id });
     var that = this;
 
     if (options.id) {
-      resource.fetchDetailAddress(options.id).then((res) => {
-        this.data.items.is_default = res.data.is_default;
-        this.setData({
-          consignee: res.data.consignee,
-          mobile: res.data.mobile,
-          county: res.data.county,
-          province: res.data.province,
-          city: res.data.city,
-          address: res.data.address,
-          loading: false,
-          items: this.data.items
-        });
-        //this.setDefault();
-        city.init(that);
-      });
+      // resource.fetchDetailAddress(options.id).then((res) => {
+      //   this.data.items.is_default = res.data.is_default;
+      //   this.setData({
+      //     consignee: res.data.consignee,
+      //     mobile: res.data.mobile,
+      //     county: res.data.county,
+      //     province: res.data.province,
+      //     city: res.data.city,
+      //     address: res.data.address,
+      //     loading: false,
+      //     items: this.data.items
+      //   });
+      //   //this.setDefault();
+      //   city.init(that);
+      // });
+      wx.request({
+        url: app.serverURL + '/get/web/addressGet.php', //仅为示例，并非真实的接口地址
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          addressid: that.data.addressid
+        },
+        success: res=> {
+          if (res.data.is_default === '1'){
+            that.data.items.is_default = 'ture';
+            that.data.items.iconType = 'success';
+            that.data.items.iconColor = '#FF2D4B';
+          }
+          that.data.items.id = res.data.id;
+          
+          that.setData({
+            addressid: res.data.id,
+            consignee: res.data.consignee,
+            mobile: res.data.mobile,
+            county: res.data.county,
+            province: res.data.province,
+            city: res.data.city,
+            address: res.data.address,
+            loading: false,
+            items: that.data.items
+          });
+          city.init(that);
+        },
+      })
     } else {
       city.init(that);
     }
@@ -112,6 +144,7 @@ Page({
         'content-type': 'application/json'
       },
       data: {
+        addressid: that.data.addressid,
         userID: app.globalData.userID,
         consignee: this.data.consignee,
         province: this.data.addressSelect.provinceIdx[this.data.addressSelect.provinceIndex],
