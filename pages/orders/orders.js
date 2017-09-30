@@ -36,6 +36,7 @@ Page({
         activeNav: this.data.activeNav
       },
       success: function (res) {
+        console.log(res);
         that.setOrderData(res.data);
         that.setData({
           orderList: res.data,

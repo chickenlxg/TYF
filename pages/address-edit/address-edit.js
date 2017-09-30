@@ -35,7 +35,6 @@ Page({
     });
   },
   onLoad(options) {
-    console.log(options);
     this.setData({ addressid: options.id });
     var that = this;
 
@@ -137,7 +136,6 @@ Page({
     //   is_default: this.data.items.is_default ? 1 : 0
     // };
     // console.log(data);
-
     wx.request({
       url: app.serverURL + '/get/web/addressAdd.php', //仅为示例，并非真实的接口地址
       header: {

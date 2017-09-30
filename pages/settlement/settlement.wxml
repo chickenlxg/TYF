@@ -2,20 +2,21 @@
 <scroll-view class="main" scroll-y="true" class="{{!loading ? '':'hidden'}} order-confirm">
     <view class="">
         <view class="address" bindtap="navigateToAddress">
-            <image class="top-line" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8AAAAAJBAMAAAAP91hJAAAAGFBMVEXL2/DovMXv7/Tt7PLQ3vHs1t3pwsvd5fIjChGoAAAAaklEQVRYw2PADliMlBBAVRAXEENSpuzAgAsUKdHKtECchiUjqTLBaRb7UHAY5W7DBM5K1HXsSIsTKjmMcreNZuDB77DRDDz44mQ0Aw/zOBnNwMM7TkYz8DCPk9EMPLzjZDQDD/M4GVQZGADFzTTgbQo27gAAAABJRU5ErkJggg=="></image>
+            <image class="top-line" src="images/line.png"></image>
              <view class="content">
-                <image class="address_icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAzCAMAAADWxGo6AAAAPFBMVEUAAAA1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTXZGDj+AAAAE3RSTlMApITvI3IWBAzeyluYafu4NkVSae+KEgAAAadJREFUSMeFVe2SgCAILM38oqnc93/XaxoP9NBufyHispDY8gfbsUY8iOuxLR/w+Q2zMdo3PPtZ5G2B9JBV+gTYexgYCKCtE0MABR25R8RNKX+cu4q0ID9QT7B/YkOEGRdgEHsNBFJB460b0U87GHE3K4uPfm+wwpM7oaG44w6d3Mx2hFS5E15Q40KUDGeTDdaUYiwaTSfbB7IQwPlXvoOkyjiqtYrzhPs1HU4hWFmqpE9STRIJiGwIU5HQwhmETKjolcJpiRPo0BNLA5w61P7HasFcnrVmCc2s1TO/wcUdiF6uCXfgguF75USBkS9P0phb8S/BgkKdNPsYrFDM0IwYyDlCM1QBpxTQVOMdXjg/3A5I7bW/SuluekKQBX1OAdcn3dCQXgos51AIsN36wKFi1BYf9ZPZrgnVVGpkGKUIfkgKBF3nMVZqdKHq+Nxr4LTTVVJFoF/dSqoZSD+YbtbBq/dcqtvqlVUvq8YK1ytaP64bttlKV5ba9G75QJJtw8emEq5aPaefoQB7bX4R7/yXpn55046lEBL36Qt+xYNVfabJNA3b9AMxcxcGcyvZQgAAAABJRU5ErkJggg=="></image>
+                <image class="address_icon" src="images/address.png"></image>
                 <view class="address_text">
                     <view class="adr">
-                        <text>{{address.consignee}} {{address.mobile}}</text>
+                        <text>{{address.consignee}}</text>
+                        <text class='tel'>{{address.mobile}}</text>
                     </view>
                     <view class="ddress">
                         <text>{{address.address}}</text>
                     </view>
                 </view>
-                <image class="arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAtBAMAAACzED1lAAAAJ1BMVEUAAABhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFz0jeiAAAADHRSTlMAFE2vB2yMJfbjN8sDf6kTAAAAmUlEQVQoz2PYIcAAB3MmItg1px3gbK4zBggJnWMINuuZAAQn5xCCzXxmAZzNMuc4QkLiBMI+9jNbEBJrDiPYTGcSEJyYowg22xkFBMfmFILtfaYAzmac04hk30kHhH24vMGE7A2bA5jiCPUIcxDmI+zFdA/CnQj3I/yF8C9mOCDCBxFuiPBEhDO28GfFcDgiHhHxiy3ekdMDACnzNDtn0cBHAAAAAElFTkSuQmCC"></image>
+                <image class="arrow" src="images/arrow.png"></image>
             </view> 
-            <image class="bottom-line" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8AAAAAJBAMAAAAP91hJAAAAGFBMVEXL2/DovMXv7/Tt7PLQ3vHs1t3pwsvd5fIjChGoAAAAaklEQVRYw2PADliMlBBAVRAXEENSpuzAgAsUKdHKtECchiUjqTLBaRb7UHAY5W7DBM5K1HXsSIsTKjmMcreNZuDB77DRDDz44mQ0Aw/zOBnNwMM7TkYz8DCPk9EMPLzjZDQDD/M4GVQZGADFzTTgbQo27gAAAABJRU5ErkJggg=="></image>
+            <image class="bottom-line" src="images/line.png"></image>
         </view>
         <view class="items-list">
             <view wx:for="{{cartList}}" wx:for-item="product" class="product">

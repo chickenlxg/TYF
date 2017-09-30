@@ -8,8 +8,8 @@ Page({
     ok: 1,
     loading: true,
     exec: false,
-    userIntegral:null,
-    orderSn:null
+    userIntegral: null,
+    orderSn: null
   },
   //页面刷新重新
   onLoad(options) {
@@ -17,16 +17,16 @@ Page({
     const orderSn = options.orderSn;
     var that = this;
     wx.request({
-      url: app.serverURL + '/get/address.php', //仅为示例，并非真实的接口地址
+      url: app.serverURL + '/get/web/addressGet.php', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json'
       },
+      data: {
+        userID: app.globalData.userID,
+        orderSn: options.orderSn
+      },
       success: function (res) {
-        res.data.forEach(item => {
-          if (item.is_default) {
-            that.setData({ address: item })
-          }
-        });
+        that.setData({ address: res.data })
       },
     });
 
@@ -39,7 +39,6 @@ Page({
         orderSn: options.orderSn
       },
       success: function (res) {
-        console.log(res);
         var totalNumber = 0;
         var totalPrice = 0;
         res.data.forEach(item => {
@@ -73,13 +72,13 @@ Page({
 
   },
 
-  
+
 
   postOrder(options) {
     this.setData({ exec: true });
 
     var that = this;
-    if (this.data.totalPay > this.data.userIntegral){
+    if (this.data.totalPay > this.data.userIntegral) {
       that.setData({
         exec: false,
 
@@ -96,7 +95,7 @@ Page({
           }
         });
       }, 2000);
-    }else{
+    } else {
       wx.request({
         url: app.serverURL + '/get/web/pay.php', //仅为示例，并非真实的接口地址
         header: {
@@ -109,14 +108,12 @@ Page({
           userIntegral: this.data.userIntegral
         },
         success: function (res) {
-          console.log(res);
           if (res.statusCode == '200') {
             that.setData({ exec: false });
             wx.switchTab({
               url: '../user/user',
             });
           } else {
-            console.log('false');
             that.setData({
               exec: false,
 
@@ -144,7 +141,7 @@ Page({
 
   navigateToAddress() {
     wx.navigateTo({
-      url: '../addresses/addresses',
+      url: '../addresses/addresses?orderSn=' + this.data.orderSn,
     });
   }
 });

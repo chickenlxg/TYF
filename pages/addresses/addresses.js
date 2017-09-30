@@ -8,7 +8,8 @@ Page({
     defaultId: 0,
     tipsData: {
       title: ''
-    }
+    },
+    orderSn:null
   },
   setDefaultStyle(list, id) {
     list.forEach((itm) => {
@@ -117,7 +118,7 @@ Page({
       },
     })
   },
-  onLoad() {
+  onLoad(option) {
     tips.toast(this.data.tipsData);
     const tipsData = {
       title: 'sku不足zz',
@@ -125,6 +126,7 @@ Page({
       isHidden: false
     };
     this.setData({
+      orderSn:option.orderSn,
       tipsData
     });
     setTimeout(() => {
@@ -186,5 +188,9 @@ Page({
       title: '设置中，请稍后',
       icon: 'loading'
     });
+  },
+  changeAddress(event){
+    const changeid = event.target.dataset.addressId;
+    console.log(changeid);
   }
 });

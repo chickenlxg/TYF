@@ -33,7 +33,6 @@ Page({
         var buyNumber = 0;
         var buyPrice = 0;
         res.data.forEach(item => {
-          console.log(item);
           item.PNUM = 1 * item.PNUM;
           item.status = 1 * item.status;
           // 保留两位小数点
@@ -74,7 +73,6 @@ Page({
   },
   // 选择商品
   selectProduct(event) {
-    console.log(event);
     var cartId = event.currentTarget.dataset.id;
     var checkedStatus = event.currentTarget.dataset.checkedStatus;
     var totalNumber = 0;
