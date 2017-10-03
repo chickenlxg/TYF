@@ -9,7 +9,7 @@ Page({
     tipsData: {
       title: ''
     },
-    orderSn:null
+    orderSn: null
   },
   setDefaultStyle(list, id) {
     list.forEach((itm) => {
@@ -126,7 +126,7 @@ Page({
       isHidden: false
     };
     this.setData({
-      orderSn:option.orderSn,
+      orderSn: option.orderSn,
       tipsData
     });
     setTimeout(() => {
@@ -189,8 +189,23 @@ Page({
       icon: 'loading'
     });
   },
-  changeAddress(event){
-    const changeid = event.target.dataset.addressId;
-    console.log(changeid);
+  changeAddress(event) {
+    var that = this;
+    const changeid = event.currentTarget.dataset.addressId;
+    wx.request({
+      url: app.serverURL + '/get/web/addressAlter.php', //仅为示例，并非真实的接口地址
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        orderSn: that.data.orderSn,
+        addressId: changeid
+      },
+      success: function (res) {
+        wx.navigateTo({
+          url: '../settlement/settlement?orderSn=' + that.data.orderSn
+        });
+      }
+    })
   }
 });

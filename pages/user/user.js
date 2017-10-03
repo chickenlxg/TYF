@@ -75,7 +75,6 @@ Page({
       },
       success: function (res) {
         const orderList = res.data;
-        console.log(orderList);
         that.countOrder(orderList);
       },
     });
