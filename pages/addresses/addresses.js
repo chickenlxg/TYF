@@ -9,7 +9,8 @@ Page({
     tipsData: {
       title: ''
     },
-    orderSn: null
+    orderSn: null,
+    type:null
   },
   setDefaultStyle(list, id) {
     list.forEach((itm) => {
@@ -127,6 +128,7 @@ Page({
     };
     this.setData({
       orderSn: option.orderSn,
+      type: option.type,
       tipsData
     });
     setTimeout(() => {
@@ -202,8 +204,9 @@ Page({
         addressId: changeid
       },
       success: function (res) {
+        var url = that.data.type == "order-detail" ? "../order-detail/order-detail?subOrderSn=" : '../settlement/settlement?orderSn=';
         wx.navigateTo({
-          url: '../settlement/settlement?orderSn=' + that.data.orderSn
+          url: url + that.data.orderSn
         });
       }
     })

@@ -66,7 +66,7 @@ Page({
         orderStatus: itm.status,
         orderSn: itm.orderSn,
         subOrderSn: itm.sub_order_sn,
-        isButtonHidden: itm.status == "未付款" ? true : false,
+        isButtonHidden: itm.status == "待付款" ? true : false,
       };
     });
     return data;

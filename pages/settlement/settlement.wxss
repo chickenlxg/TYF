@@ -218,3 +218,17 @@
     outline: none;
     font-size: 23.4375rpx;
 }
+.item-amount {
+  margin: 23.44rpx 0 150rpx;
+  background: #fff;
+  padding: 0rpx 18.75rpx;
+  font-size: 28.12rpx;
+}
+.item-amount view {
+  border-bottom: 1px solid #efefef;
+  padding: 20.15rpx 16.41rpx;
+}
+
+.item-amount view text{
+ float: right;
+}

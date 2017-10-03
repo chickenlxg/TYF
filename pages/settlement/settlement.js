@@ -138,10 +138,9 @@ Page({
 
 
   },
-
   navigateToAddress() {
     wx.navigateTo({
-      url: '../addresses/addresses?orderSn=' + this.data.orderSn,
+      url: '../addresses/addresses?type=settlement&orderSn=' + this.data.orderSn,
     });
   }
 });

@@ -44,16 +44,10 @@ Page({
         text: '客服电话',
         tip: '1383838388',
       }, {
-        icon: 'images/feedback.png',
-        text: '意见反馈',
-        tip: '',
-        cut: true,
-        url: '../feedback/feedback'
-      }, {
         icon: 'images/about.png',
         text: '关于商城',
         tip: '',
-        url: '../user-register/user-register'
+        url: '../about/about'
       }
     ]
   },
