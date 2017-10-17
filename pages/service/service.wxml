@@ -1,0 +1,59 @@
+<view class="order">
+  <text class="order-title">统计</text>
+  <view class="order-con" bindtap="goNormal">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">基础信息统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goManageer">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">渠道下单统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goOrderSell">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">订单销售统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goCustomer">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">客户信息统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goSource">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">客户信息统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goStyleSell">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">客户信息统计</text>
+      </button>
+    </view>
+  </view>
+  <view class="order-con" bindtap="goDesign">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">客户信息统计</text>
+      </button>
+    </view>
+  </view>
+</view>
