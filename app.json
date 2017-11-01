@@ -19,7 +19,8 @@
     "pages/order-detail/order-detail",
     "pages/about/about",
     "pages/test/test",
-    "pages/service/service"
+    "pages/service/service",
+    "pages/pay/pay"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -46,7 +47,7 @@
         "text": "分类"
       },
       {
-        "pagePath": "pages/service/service",
+        "pagePath": "pages/pay/pay",
         "iconPath": "images/category.png",
         "selectedIconPath": "images/category-selected.png",
         "text": "服务"

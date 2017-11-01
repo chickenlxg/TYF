@@ -1,0 +1,11 @@
+<view class="order">
+  <text class="order-title">咨询服务</text>
+  <view class="order-con" bindtap="pay">
+    <view class="orders">
+      <button open-type="contact">
+      <image class="orders-image" src="../user/images/tel.png"></image>
+      <text class="orders-text">基础信息统计</text>
+      </button>
+    </view>
+  </view>
+</view>
