@@ -40,9 +40,8 @@
       </view>
     </view>
     <view class="statistics">
-      <view class="border-bottom"> 商品总额
-        <text> {{totalPay}} 积分</text>
-      </view>
+      <view class="border-bottom" wx:if="{{ wxpay==='0' }}"> 商品总额<text> {{totalPay}} 积分</text></view>
+      <view class="border-bottom" wx:if="{{ wxpay==='1' }}"> 商品总额<text> {{wxPrice}} 元</text></view>
     </view>
     <view class="item-amount">
       <view class="last-child colora0">

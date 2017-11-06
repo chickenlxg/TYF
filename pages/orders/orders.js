@@ -51,6 +51,7 @@ Page({
     data.forEach((itm) => {
       var totalNumber = 0;
       var totalPrice = 0;
+      var wxPrice = 0;
       itm.goods.forEach(item => {
         // 保留两位小数点
         // item.goods_price = item.goods_price.toFixed(2);
@@ -59,7 +60,7 @@ Page({
         totalNumber += item.PNUM;
         totalPrice += item.PNUM * item.goods_price;
       })
-
+      itm.wxPrice = totalPrice * 0.04;
       itm.totalNumber = totalNumber;
       itm.totalPay = totalPrice;
       itm.order = {

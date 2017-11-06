@@ -5,6 +5,8 @@ Page({
     cartList: [],
     freight: 0,
     totalPay: 0,
+    wxpay: 0,
+    wxPrice: 0,
     ok: 1,
     loading: true,
     exec: false,
@@ -40,6 +42,7 @@ Page({
         orderSn: options.subOrderSn
       },
       success: function (res) {
+        
         var totalNumber = 0;
         var totalPrice = 0;
         res.data.forEach(item => {
@@ -53,7 +56,8 @@ Page({
           cartList: res.data,
           loading: false,
           totalNumber: totalNumber,
-          totalPay: totalPrice
+          totalPay: totalPrice,
+          wxPrice: totalPrice*0.04
         });
       },
     });
@@ -67,9 +71,9 @@ Page({
         orderSn: options.subOrderSn
       },
       success: function (res) {
-
-
+        console.log(res);
         that.setData({
+          wxpay: res.data.wxpay,
           order: {
             orderStatus: res.data.status,
             refund_status: res.data.refund_status,
@@ -78,11 +82,10 @@ Page({
             creatTime: res.data.creatTime
           }
         });
-        console.log(that.data.order);
       }
     });
 
-
+    console.log(that.data);
 
   },
 

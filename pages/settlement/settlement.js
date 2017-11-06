@@ -161,9 +161,20 @@ Page({
             'signType': 'MD5',
             'paySign': res.data.paySign,
             'success': function (res) {
-              that.setData({ exec: false });
-              wx.switchTab({
-                url: '../user/user',
+              wx.request({
+                url: app.serverURL + '/wxpay/wxorder.php', //仅为示例，并非真实的接口地址
+                header: {
+                  'content-type': 'application/json'
+                },
+                data: {
+                  orderSn: that.data.orderSn
+                },
+                success: function (res) {
+                  that.setData({ exec: false });
+                  wx.switchTab({
+                    url: '../user/user',
+                  });
+                },
               });
             },
             'fail': function (res) {

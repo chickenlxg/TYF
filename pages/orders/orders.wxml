@@ -20,7 +20,8 @@
         </navigator>
         <view class="cell-count">
             <view class="count-amount">共{{goods.length}}样商品</view>
-            <view class="count-price">{{totalPrice}} 积分</view>
+            <view class="count-price" wx:if="{{ wxpay==='0' }}">{{totalPrice}} 积分</view>
+            <view class="count-price" wx:if="{{ wxpay==='1' }}">{{wxPrice}} 元</view>
             <view class="count-carriage">运费：<text>￥{{shipping_price}} 0 元</text></view>
         </view>
         <view class="cell-btn" hidden="{{order.isButtonShow}}">
