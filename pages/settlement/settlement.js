@@ -5,6 +5,7 @@ Page({
     cartList: [],
     freight: 0,
     totalPay: 0,
+    wxPay: 0,
     ok: 1,
     loading: true,
     exec: false,
@@ -52,7 +53,8 @@ Page({
           cartList: res.data,
           loading: false,
           totalNumber: totalNumber,
-          totalPay: totalPrice
+          totalPay: totalPrice,
+          wxPay: totalPrice * 0.04
         });
       },
     });
@@ -133,10 +135,59 @@ Page({
           };
         }
       });
-
     }
+  },
+  wxpostOrder(options) {
+    this.setData({ exec: true });
 
+    var that = this;
 
+    wx.request({
+      url: app.serverURL + '/wxpay/payfee.php', //仅为示例，并非真实的接口地址
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        userID: app.globalData.userID,
+        orderSn: that.data.orderSn,
+        wxPay: that.data.wxPay
+      },
+      success: function (res) {
+        if (res.statusCode == '200') {
+          wx.requestPayment({
+            'timeStamp': res.data.timeStamp,
+            'nonceStr': res.data.nonceStr,
+            'package': res.data.package,
+            'signType': 'MD5',
+            'paySign': res.data.paySign,
+            'success': function (res) {
+              that.setData({ exec: false });
+              wx.switchTab({
+                url: '../user/user',
+              });
+            },
+            'fail': function (res) {
+              that.setData({
+                exec: false,
+
+                toast: {
+                  toastClass: 'yatoast',
+                  toastMessage: '支付失败!'
+                }
+              });
+              setTimeout(() => {
+                that.setData({
+                  toast: {
+                    toastClass: '',
+                    toastMessage: ''
+                  }
+                });
+              }, 2000);
+            }
+          })
+        }
+      }
+    });
   },
   navigateToAddress() {
     wx.navigateTo({
